@@ -38,9 +38,12 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       retry : "Retry",
       cardAnnouncement: 'Incorrect answer. Correct answer was @answer',
       pageAnnouncement: 'Page @current of @total',
+      audioNotSupported: 'Your browser does not support this audio.'
     }, options);
     this.$images = [];
     this.hasBeenReset = false;
+
+    this.audioButtons = [];
 
     this.on('resize', this.resize, this);
   }
@@ -273,6 +276,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     $showResults
       .on('click', function () {
+        that.resetAudio();
         that.enableResultScreen();
       })
       .appendTo($inner.parent());
@@ -324,7 +328,25 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       }
     }
 
-    $card.find('.h5p-imageholder').prepend(this.$images[index]);
+    const audioButton = new H5P.Flashcards.AudioButton(
+      that.contentId,
+      {
+        sample: card.audio,
+        audioNotSupported: that.options.audioNotSupported,
+        a11y: {
+          play: that.options.audioPlay,
+          pause: that.options.audioPause
+        }
+      },
+      {} // Prepared for previous state
+    );
+
+    // Keep track for silencing
+    this.audioButtons.push(audioButton);
+
+    $card.find('.h5p-imageholder')
+      .prepend(this.$images[index])
+      .prepend(audioButton.getDOM());
 
     $card.prepend($('<div class="h5p-flashcard-overlay"></div>').on('click', function () {
       if ($(this).parent().hasClass('h5p-previous')) {
@@ -348,6 +370,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     var $input = $card.find('.h5p-textinput');
 
     var handleClick = function () {
+      that.resetAudio();
+
       var card = that.options.cards[index];
       var userAnswer = $input.val().trim();
       var userCorrect = isCorrectAnswer(card, userAnswer, that.options.caseSensitive);
@@ -422,6 +446,21 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     return $card;
   };
+
+  /**
+   * Reset audio from button.
+   * @param {number} [id] Id of button to be reset.
+   */
+  C.prototype.resetAudio = function(id) {
+    if (typeof id === 'number' && id >= 0 && id < this.audioButtons.length) {
+      this.audioButtons[id].resetAudio();
+      return;
+    }
+
+    this.audioButtons.forEach(function(button) {
+      button.resetAudio();
+    });
+  }
 
   /**
    * Create result screen
@@ -603,6 +642,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     var that = this;
     var $next = this.$current.next();
 
+    that.resetAudio();
+
     clearTimeout(this.prevTimer);
     clearTimeout(this.nextTimer);
 
@@ -628,6 +669,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
   C.prototype.previous = function () {
     var that = this;
     var $prev = this.$current.prev();
+
+    that.resetAudio();
 
     clearTimeout(this.prevTimer);
     clearTimeout(this.nextTimer);
