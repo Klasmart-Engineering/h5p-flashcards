@@ -31,6 +31,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       showSolutionText: "Correct answer",
       answerShortText: "A:",
       informationText: "Information",
+      useSpeechRecognition: false,
+      inputLanguage: 'en-US',
       caseSensitive: false,
       results: "Results",
       ofCorrect: "@score of @total correct",
@@ -38,12 +40,16 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       retry : "Retry",
       cardAnnouncement: 'Incorrect answer. Correct answer was @answer',
       pageAnnouncement: 'Page @current of @total',
-      audioNotSupported: 'Your browser does not support this audio.'
+      audioNotSupported: 'Your browser does not support this audio.',
+      listening: 'Listening ...',
+      noMicrophoneAccess: 'No microphone access',
+      pushToSpeak: 'Push to speak'
     }, options);
     this.$images = [];
     this.hasBeenReset = false;
 
     this.audioButtons = [];
+    this.speechRecognitions = [];
 
     this.on('resize', this.resize, this);
   }
@@ -348,6 +354,33 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       .prepend(this.$images[index])
       .prepend(audioButton.getDOM());
 
+    // Add speech recognition to retrieve answer from microphone
+    if (this.options.useSpeechRecognition) {
+      const speechRecognition = new H5P.SpeechRecognition(
+        {
+          language: this.options.inputLanguage,
+          l10n: {
+            listening: this.options.listening,
+            pushToSpeak: this.options.pushToSpeak,
+            noMicrophoneAccess: this.options.noMicrophoneAccess
+          },
+          showLabel: false
+        },
+        {
+          onResult: (result) => {
+            $card.find('.h5p-textinput').val(result.phrases[0]).focus();
+          }
+        }
+      );
+      $card.find('.h5p-input').prepend(speechRecognition.getButtonDOM());
+
+      // Keep track for disabling/enabling
+      this.speechRecognitions.push(speechRecognition);
+
+      // Give button space next to text input field
+      $card.find('.h5p-textinput').addClass('h5p-uses-speech-recognition');
+    }
+
     $card.prepend($('<div class="h5p-flashcard-overlay"></div>').on('click', function () {
       if ($(this).parent().hasClass('h5p-previous')) {
         that.previous();
@@ -383,6 +416,9 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
       if (!that.options.showSolutionsRequiresInput || userAnswer !== '' || userCorrect) {
         that.numAnswered++;
+
+        // Deactivate input options
+        that.speechRecognitions[index].disableButton();
         $input.add(this).attr('disabled', true);
 
         that.answers[index] = userAnswer;
@@ -709,6 +745,10 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    * @private
    */
   C.prototype.resetTask = function () {
+    this.speechRecognitions.forEach(function(button) {
+      button.enableButton();
+    });
+
     this.numAnswered = 0;
     this.hasBeenReset = true;
     this.cardsLoaded();
