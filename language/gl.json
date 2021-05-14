@@ -1,43 +1,43 @@
 {
   "semantics": [
     {
-      "label": "תיאור משימה"
+      "label": "Descrición da tarefa"
     },
     {
       "widgets": [
         {
-          "label": "Default"
+          "label": "Por defecto"
         }
       ],
-      "label": "Cards",
-      "entity": "card",
+      "label": "Tarxetas",
+      "entity": "tarxeta",
       "field": {
-        "label": "Card",
+        "label": "Tarxeta",
         "fields": [
           {
-            "label": "Question",
-            "description": "Optional textual question for the card. (The card may use just an image, just a text or both)"
+            "label": "Pregunta",
+            "description": "Pregunta de texto opcional para a tarxeta. (A tarxeta pode usar só unha imaxe, só texto ou ambos)"
           },
           {
-            "label": "Answer",
-            "description": "Optional answer(solution) for the card. Use a pipe symbol | to split alternative solutions. Use \\| if a solution should contain a |."
+            "label": "Resposta",
+            "description": "Resposta opcional (solución) para a tarxeta."
           },
           {
-            "label": "Image",
-            "description": "Optional image for the card. (The card may use just an image, just a text or both)"
+            "label": "Imaxe",
+            "description": "Imaxe opcional para a tarxeta. (A tarxeta pode usar só unha imaxe, só texto ou ambos)"
           },
           {
-            "label": "Alternative text for image"
+            "label": "Texto alternativo para a imaxe"
           },
           {
             "label": "Audio",
             "description": "Optional audio for the card."
           },
           {
-            "label": "טיפ",
+            "label": "Pista",
             "fields": [
               {
-                "label": "תוכן טיפ"
+                "label": "Texto da pista"
               }
             ]
           }
@@ -45,21 +45,21 @@
       }
     },
     {
-      "label": "Progress text",
-      "default": "Card @card of @total",
-      "description": "Progress text, variables available: @card and @total. Example: 'Card @card of @total'"
+      "label": "Texto de progreso",
+      "default": "Tarxeta @card de @total",
+      "description": "Texto de progreso; variables dispoñibles: @card e @total. Exemplo: 'Tarxeta @card de @total'"
     },
     {
-      "label": "Text for the next button",
-      "default": "Next"
+      "label": "Texto para o botón seguinte",
+      "default": "Seguinte"
     },
     {
-      "label": "Text for the previous button",
-      "default": "Previous"
+      "label": "Texto para o botón anterior",
+      "default": "Anterior"
     },
     {
-      "label": "Text for the check answers button",
-      "default": "Check"
+      "label": "Texto para o botón comprobar respostas",
+      "default": "Comprobar"
     },
     {
       "label": "Allow user to enter answer using speech recognition"
@@ -436,62 +436,58 @@
       ]
     },
     {
-      "label": "Require user input before the solution can be viewed"
+      "label": "Requerir resposta do usuario antes de que poida ver a solución"
     },
     {
-      "label": "Text for the answer input field",
-      "default": "Your answer"
+      "label": "Texto para o campo de resposta",
+      "default": "A túa resposta"
     },
     {
-      "label": "Text for correct answer",
-      "default": "Correct"
+      "label": "Texto para resposta correcta",
+      "default": "Correcto"
     },
     {
-      "label": "Text for incorrect answer",
-      "default": "Incorrect"
+      "label": "Texto para resposta incorrecta",
+      "default": "Incorrecta"
     },
     {
-      "label": "Show solution text",
-      "default": "Correct answer"
+      "label": "Texto para amosar a solución",
+      "default": "Resposta correcta"
     },
     {
-      "label": "Separator of solution alternatives",
-      "default": "or"
+      "label": "Texto para o título dos resultados",
+      "default": "Resultados"
     },
     {
-      "label": "Text for results title",
-      "default": "Results"
+      "label": "Texto para número de respostas correctas",
+      "default": "@score de @total son correctas",
+      "description": "Texto para resultados, variables dispoñibles: @score e @total. Exemplo: '@score de @total son correctas'"
     },
     {
-      "label": "Text for number of correct",
-      "default": "@score of @total correct",
-      "description": "Result text, variables available: @score and @total. Example: '@score of @total correct'"
+      "label": "Texto para amosar resultados",
+      "default": "Amosar resultados"
     },
     {
-      "label": "Text for show results",
-      "default": "Show results"
+      "label": "Texto para etiqueta de resposta curta",
+      "default": "R:"
     },
     {
-      "label": "Text for short answer label",
-      "default": "A:"
+      "label": "Texto para o botón \"reintentar\"",
+      "default": "Reintentar"
     },
     {
-      "label": "Text for \"retry\" button",
-      "default": "Retry"
+      "label": "Diferencia entre maiúsculas e minúsculas",
+      "description": "Fai que o texto introducido polo usuario teña que ser exactamente igual que a resposta."
     },
     {
-      "label": "Case sensitive",
-      "description": "Makes sure the user input has to be exactly the same as the answer."
+      "label": "Texto de resposta incorrecta para tecnoloxías de asistencia",
+      "default": "Resposta incorrecta. A resposta correcta era @answer",
+      "description": "O texto pasarase ás tecnoloxías de asistencia. Usa @answer como variable."
     },
     {
-      "label": "תוכן לא נכון עבור טכנולוגיות מסייעות",
-      "default": "תשובה לא נכונה. התשובה הנכונה הייתה anwser@",
-      "description": "תוכן יוקרא בקול לטכנולוגיות מסייעות. השתמשו ב- answer@ כמשתנה."
-    },
-    {
-      "label": "החלפת כרטיס עבור טכנולוגיות מסייעות",
-      "default": "דף current@ מתוך total@",
-      "description": "תוכן שיוקרא לטכנולוגיות מסייעות בעת ניווט בין כרטיסים. השתמשו ב- current@ ו- total@ כמשתנים."
+      "label": "Cambio de tarxeta para as tecnoloxías de asistencia",
+      "default": "Páxina @current de @total",
+      "description": "O texto pasarase ás tecnoloxías de asistencia cando se navegue entre tarxetas. Usa @current e @total como variables."
     },
     {
       "label": "Audio play button",
