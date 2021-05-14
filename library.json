@@ -51,6 +51,11 @@
       "machineName": "H5P.Audio",
       "majorVersion": 1,
       "minorVersion": 4
+    },
+    {
+      "machineName": "H5P.SpeechRecognition",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ],
   "editorDependencies": [
@@ -58,6 +63,11 @@
       "machineName": "H5PEditor.VerticalTabs",
       "majorVersion": 1,
       "minorVersion": 3
+    },
+    {
+      "machineName": "H5PEditor.ShowWhen",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
