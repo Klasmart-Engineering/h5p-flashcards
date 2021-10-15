@@ -473,7 +473,8 @@
     },
     {
       "label": "Text for short answer label",
-      "default": "A:"
+      "default": "A:",
+      "description": "Results text, available variables: @score and @total. Example: '@score of @total correct'"
     },
     {
       "label": "Text for \"retry\" button",
@@ -481,7 +482,8 @@
     },
     {
       "label": "Case sensitive",
-      "description": "Makes sure the user input has to be exactly the same as the answer."
+      "description": "Makes sure the user input has to be exactly the same as the answer.",
+      "default": "A:"
     },
     {
       "label": "Incorrect text for assistive technologies",
@@ -512,6 +514,16 @@
       "label": "Microphone listen button title for assistive technologies",
       "default": "Listening ...",
       "description": "Text that will be announced to assistive technologies for the microphone button when listening."
+    },
+    {
+      "label": "Microphone listen button title for assistive technologies",
+      "default": "No microphone Access",
+      "description": "Text that will be announced to assistive technologies for the microphone button if it cannot be accessed."
+    },
+    {
+      "label": "Microphone push to speak button title for assistive technologies",
+      "default": "Push to speak",
+      "description": "Text that will be announced to assistive technologies for the microphone button when not listening."
     },
     {
       "label": "Microphone listen button title for assistive technologies",

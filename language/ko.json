@@ -1,43 +1,43 @@
 {
   "semantics": [
     {
-      "label": "Task description"
+      "label": "과제에 대한 설명"
     },
     {
       "widgets": [
         {
-          "label": "Default"
+          "label": "기본"
         }
       ],
-      "label": "Cards",
-      "entity": "card",
+      "label": "카드",
+      "entity": "카드",
       "field": {
-        "label": "Card",
+        "label": "카드",
         "fields": [
           {
-            "label": "Question",
-            "description": "Optional textual question for the card. (The card may use just an image, just a text or both)"
+            "label": "질문",
+            "description": "카드에 대한 선택적 텍스트 질문입니다. (카드는 이미지, 텍스트 또는 둘 다를 사용할 수 있습니다.)"
           },
           {
-            "label": "Answer",
-            "description": "Optional answer(solution) for the card. Use a pipe symbol | to split alternative solutions. Use \\| if a solution should contain a |."
+            "label": "답변",
+            "description": "카드에 대한 선택적 답변(해결책)입니다. |(파이프 기호)를 사용하여 대체 답안을 구분합니다. 만약 해답에 | 가 포함된 경우 \\| 기호를 사용하세요."
           },
           {
-            "label": "Image",
-            "description": "Optional image for the card. (The card may use just an image, just a text or both)"
+            "label": "영상",
+            "description": "카드의 선택적 이미지입니다. (카드는 이미지, 텍스트 또는 둘 다를 사용할 수 있습니다.)"
           },
           {
-            "label": "Alternative text for image"
+            "label": "이미지의 대체 텍스트"
           },
           {
-            "label": "Audio",
-            "description": "Optional audio for the card."
+            "label": "오디오",
+            "description": "카드에 사용할 오디오 (선택 사항)"
           },
           {
-            "label": "Tip",
+            "label": "팁",
             "fields": [
               {
-                "label": "Tip text"
+                "label": "팁 텍스트"
               }
             ]
           }
@@ -45,483 +45,495 @@
       }
     },
     {
-      "label": "Progress text",
-      "default": "Card @card of @total",
-      "description": "Progress text, variables available: @card and @total. Example: 'Card @card of @total'"
+      "label": "진행 텍스트",
+      "default": "@total의 카드 @card",
+      "description": "진행 텍스트, 사용 가능한 변수: @card 및 @total. 예: '@total의 @card 카드'"
     },
     {
-      "label": "Text for the next button",
-      "default": "Next"
+      "label": "다음 버튼에 대한 텍스트",
+      "default": "다음"
     },
     {
-      "label": "Text for the previous button",
-      "default": "Previous"
+      "label": "이전 버튼의 텍스트",
+      "default": "이전"
     },
     {
-      "label": "Text for the check answers button",
-      "default": "Check"
+      "label": "답변 확인 버튼에 대한 텍스트",
+      "default": "확인"
     },
     {
-      "label": "Allow user to enter answer using speech recognition"
+      "label": "사용자가 음성 인식을 사용하여 답변을 입력하도록 허용"
     },
     {
-      "label": "Language of speech input",
+      "label": "음성 입력 언어",
       "options": [
         {
-          "label": "Afrikaans"
+          "label": "아프리카 어"
         },
         {
-          "label": "Amharic"
+          "label": "암하라어"
         },
         {
-          "label": "Arabic (Algeria)"
+          "label": "아랍어(알제리)"
         },
         {
-          "label": "Arabic (Bahrain)"
+          "label": "아랍어(바레인)"
         },
         {
-          "label": "Arabic (Egypt)"
+          "label": "아랍어(이집트)"
         },
         {
-          "label": "Arabic (Iraq)"
+          "label": "아랍어(이라크)"
         },
         {
-          "label": "Arabic (Jordan)"
+          "label": "아랍어(요르단)"
         },
         {
-          "label": "Arabic (Kuwait)"
+          "label": "아랍어(쿠웨이트)"
         },
         {
-          "label": "Arabic (Lebanon)"
+          "label": "아랍어(레바논)"
         },
         {
-          "label": "Arabic (Lybia)"
+          "label": "아랍어(리비아)"
         },
         {
-          "label": "Arabic (Morocco)"
+          "label": "아랍어(모로코)"
         },
         {
-          "label": "Arabic (Oman)"
+          "label": "아랍어(오만)"
         },
         {
-          "label": "Arabic (Qatar)"
+          "label": "아랍어(카타르)"
         },
         {
-          "label": "Arabic (Saudi Arabia)"
+          "label": "아랍어(사우디아라비아)"
         },
         {
-          "label": "Arabic (Tunisia)"
+          "label": "아랍어(튀니지)"
         },
         {
-          "label": "Arabic (UAE)"
+          "label": "아랍어(UAE)"
         },
         {
-          "label": "Arabic (Yemen)"
+          "label": "아랍어(예멘)"
         },
         {
-          "label": "Armenian"
+          "label": "아르메니아 사람"
         },
         {
-          "label": "Azerbaijani"
+          "label": "아제르바이잔"
         },
         {
-          "label": "Basque"
+          "label": "바스크 사람"
         },
         {
-          "label": "Bengali (Bangladesh)"
+          "label": "벵골어(방글라데시)"
         },
         {
-          "label": "Bengali (India)"
+          "label": "벵골어(인도)"
         },
         {
-          "label": "Bulgarian"
+          "label": "불가리아 사람"
         },
         {
-          "label": "Catalan"
+          "label": "카탈로니아 사람"
         },
         {
-          "label": "Central Khmer"
+          "label": "중부 크메르어"
         },
         {
-          "label": "Chinese, Mandarin (Traditional, Taiwan)"
+          "label": "중국어, 북경어(번체, 대만)"
         },
         {
-          "label": "Chinese, Cantonese (Traditional, Hong Kong)"
+          "label": "중국어, 광둥어(번체, 홍콩)"
         },
         {
-          "label": "Chinese, Mandarin (Simplified, China)"
+          "label": "중국어, 북경어(간체, 중국)"
         },
         {
-          "label": "Chinese, Mandarin (Simplified, Hong Kong)"
+          "label": "중국어, 북경어(간체, 홍콩)"
         },
         {
-          "label": "Croatian"
+          "label": "크로아티아어"
         },
         {
-          "label": "Czech"
+          "label": "체코 사람"
         },
         {
-          "label": "Danish"
+          "label": "덴마크 말"
         },
         {
-          "label": "Dutch"
+          "label": "네덜란드 사람"
         },
         {
-          "label": "English (Australia)"
+          "label": "영어(오스트레일리아)"
         },
         {
-          "label": "English (Canada)"
+          "label": "영어(캐나다)"
         },
         {
-          "label": "English (Ghana)"
+          "label": "영어(가나)"
         },
         {
-          "label": "English (India)"
+          "label": "영어(인도)"
         },
         {
-          "label": "English (Kenya)"
+          "label": "영어(케냐)"
         },
         {
-          "label": "English (New Zealand)"
+          "label": "영어(뉴질랜드)"
         },
         {
-          "label": "English (Nigeria)"
+          "label": "영어(나이지리아)"
         },
         {
-          "label": "English (Philippines)"
+          "label": "영어(필리핀)"
         },
         {
-          "label": "English (South Africa)"
+          "label": "영어(남아프리카 공화국)"
         },
         {
-          "label": "English (Tanzania)"
+          "label": "영어(탄자니아)"
         },
         {
-          "label": "English(UK)"
+          "label": "영어(영국)"
         },
         {
-          "label": "English(US)"
+          "label": "영어(미국)"
         },
         {
-          "label": "Filipino"
+          "label": "필리핀"
         },
         {
-          "label": "Finnish"
+          "label": "핀란드어"
         },
         {
-          "label": "French"
+          "label": "프랑스 국민"
         },
         {
-          "label": "Galician"
+          "label": "갈리시아어"
         },
         {
-          "label": "Georgian"
+          "label": "조르지아 주 사람"
         },
         {
-          "label": "German"
+          "label": "독일 사람"
         },
         {
-          "label": "Greek"
+          "label": "그리스 어"
         },
         {
-          "label": "Gujarati"
+          "label": "구자라트어"
         },
         {
-          "label": "Hebrew"
+          "label": "헤브라이 사람"
         },
         {
-          "label": "Hindi (India)"
+          "label": "힌디어(인도)"
         },
         {
-          "label": "Hungarian"
+          "label": "헝가리 인"
         },
         {
-          "label": "Icelandic"
+          "label": "아이슬란드어"
         },
         {
-          "label": "Indonesian"
+          "label": "인도네시아 인"
         },
         {
-          "label": "Italian"
+          "label": "이탈리아 사람"
         },
         {
-          "label": "Italian (Switzerland)"
+          "label": "이탈리아어(스위스)"
         },
         {
-          "label": "Japanese"
+          "label": "일본어"
         },
         {
-          "label": "Javanese"
+          "label": "자바어"
         },
         {
-          "label": "Kannada"
+          "label": "칸나다어"
         },
         {
-          "label": "Korean"
+          "label": "한국인"
         },
         {
-          "label": "Lao"
+          "label": "라오스어"
         },
         {
-          "label": "Latin"
+          "label": "라틴어"
         },
         {
-          "label": "Latvian"
+          "label": "라트비아 사람"
         },
         {
-          "label": "Lithuanian"
+          "label": "리투아니아 사람"
         },
         {
-          "label": "Malayalam"
+          "label": "말라얄람어"
         },
         {
-          "label": "Malaysian"
+          "label": "말레이시아인"
         },
         {
-          "label": "Mandarin Chinese"
+          "label": "맨 다린 중국어"
         },
         {
-          "label": "Marathi"
+          "label": "마라티어"
         },
         {
-          "label": "Nepali"
+          "label": "네팔어"
         },
         {
-          "label": "Norwegian"
+          "label": "노르웨이 인"
         },
         {
-          "label": "Pig Latin"
+          "label": "돼지 라틴어"
         },
         {
-          "label": "Polish"
+          "label": "광택"
         },
         {
-          "label": "Portuguese"
+          "label": "포르투갈 인"
         },
         {
-          "label": "Portuguese (Brazil)"
+          "label": "포르투갈어(브라질)"
         },
         {
-          "label": "Romanian"
+          "label": "루마니아 사람"
         },
         {
-          "label": "Russian"
+          "label": "러시아인"
         },
         {
-          "label": "Serbian"
+          "label": "세르비아 사람"
         },
         {
-          "label": "Sinhalese"
+          "label": "싱할라어"
         },
         {
-          "label": "Slovak"
+          "label": "슬로바키아 사람"
         },
         {
-          "label": "Slovenian"
+          "label": "슬로베니아"
         },
         {
-          "label": "Spanish (Argentina)"
+          "label": "스페인어(아르헨티나)"
         },
         {
-          "label": "Spanish (Bolivia)"
+          "label": "스페인어(볼리비아)"
         },
         {
-          "label": "Spanish (Chile)"
+          "label": "스페인어(칠레)"
         },
         {
-          "label": "Spanish (Colombia)"
+          "label": "스페인어(콜롬비아)"
         },
         {
-          "label": "Spanish (Costa Rica)"
+          "label": "스페인어(코스타리카)"
         },
         {
-          "label": "Spanish (Dominican Republic)"
+          "label": "스페인어(도미니카 공화국)"
         },
         {
-          "label": "Spanish (Ecuador)"
+          "label": "스페인어(에콰도르)"
         },
         {
-          "label": "Spanish (El Salvador)"
+          "label": "스페인어(엘살바도르)"
         },
         {
-          "label": "Spanish (Guatemala)"
+          "label": "스페인어(과테말라)"
         },
         {
-          "label": "Spanish (Honduras)"
+          "label": "스페인어(온두라스)"
         },
         {
-          "label": "Spanish (Mexico)"
+          "label": "스페인어(멕시코)"
         },
         {
-          "label": "Spanish (Nicaragua)"
+          "label": "스페인어(니카라과)"
         },
         {
-          "label": "Spanish (Panama)"
+          "label": "스페인어(파나마)"
         },
         {
-          "label": "Spanish (Paraguay)"
+          "label": "스페인어(파라과이)"
         },
         {
-          "label": "Spanish (Peru)"
+          "label": "스페인어(페루)"
         },
         {
-          "label": "Spanish (Puerto Rico)"
+          "label": "스페인어(푸에르토리코)"
         },
         {
-          "label": "Spanish (Spain)"
+          "label": "스페인어(스페인)"
         },
         {
-          "label": "Spanish (US)"
+          "label": "스페인어(미국)"
         },
         {
-          "label": "Spanish (Uruguay)"
+          "label": "스페인어(우루과이)"
         },
         {
-          "label": "Spanish (Venezuela)"
+          "label": "스페인어(베네수엘라)"
         },
         {
-          "label": "Sundanese"
+          "label": "순다어"
         },
         {
-          "label": "Swahili (Kenya)"
+          "label": "스와힐리어(케냐)"
         },
         {
-          "label": "Swahili (Tanzania)"
+          "label": "스와힐리어(탄자니아)"
         },
         {
-          "label": "Swedish"
+          "label": "스웨덴어"
         },
         {
-          "label": "Tamil (India)"
+          "label": "타밀어(인도)"
         },
         {
-          "label": "Tamil (Malaysia)"
+          "label": "타밀어(말레이시아)"
         },
         {
-          "label": "Tamil (Singapore)"
+          "label": "타밀어(싱가포르)"
         },
         {
-          "label": "Tamil (Sri Lanka)"
+          "label": "타밀어(스리랑카)"
         },
         {
-          "label": "Telugu"
+          "label": "텔루구어"
         },
         {
-          "label": "Thai (Thailand)"
+          "label": "태국어(태국)"
         },
         {
-          "label": "Traditional Taiwan"
+          "label": "대만 전통"
         },
         {
-          "label": "Turkish"
+          "label": "터키어"
         },
         {
-          "label": "Ukrainian (Ukraine)"
+          "label": "우크라이나어(우크라이나)"
         },
         {
-          "label": "Urdu (India)"
+          "label": "우르두어(인도)"
         },
         {
-          "label": "Urdu (Pakistan)"
+          "label": "우르두어(파키스탄)"
         },
         {
-          "label": "Vietnamese"
+          "label": "베트남어"
         },
         {
-          "label": "Yue Chinese (Traditional Hong Kong)"
+          "label": "위에 중국어(번체 홍콩)"
         },
         {
-          "label": "Zulu"
+          "label": "줄루 족"
         }
       ]
     },
     {
-      "label": "Require user input before the solution can be viewed"
+      "label": "솔루션을 보기 전에 사용자 입력이 필요합니다."
     },
     {
-      "label": "Text for the answer input field",
-      "default": "Your answer"
+      "label": "답변 입력 필드의 텍스트",
+      "default": "당신의 답변"
     },
     {
-      "label": "Text for correct answer",
-      "default": "Correct"
+      "label": "정답에 대한 텍스트",
+      "default": "정답"
     },
     {
-      "label": "Text for incorrect answer",
-      "default": "Incorrect"
+      "label": "오답에 대한 텍스트",
+      "default": "오답"
     },
     {
-      "label": "Show solution text",
-      "default": "Correct answer"
+      "label": "해답 보기 텍스트",
+      "default": "정답"
     },
     {
-      "label": "Separator of solution alternatives",
-      "default": "or"
+      "label": "선택지 구분자",
+      "default": "또는"
     },
     {
-      "label": "Text for results title",
-      "default": "Results"
+      "label": "결과 제목 텍스트",
+      "default": "결과"
     },
     {
-      "label": "Text for number of correct",
-      "default": "@score of @total correct",
-      "description": "Result text, variables available: @score and @total. Example: '@score of @total correct'"
+      "label": "정답 개수에 대한 텍스트",
+      "default": "@total개 중 @score개 정답",
+      "description": "결과 텍스트, 사용 가능한 변수: @score 및 @total. 예: '@total 올바른 @점수'"
     },
     {
-      "label": "Text for show results",
-      "default": "Show results"
+      "label": "결과 보기 텍스트",
+      "default": "결과 보기"
     },
     {
-      "label": "Text for short answer label",
+      "label": "단답형 텍스트 레이블에 들어갈 내용",
+      "default": "A:",
+      "description": "결과 텍스트, 사용 가능한 변수: @score 및 @total. 예: '@total 올바른 @점수'"
+    },
+    {
+      "label": "\"재시도\" 버튼의 텍스트",
+      "default": "재시도"
+    },
+    {
+      "label": "대소문자 구분",
+      "description": "사용자 입력이 답변과 정확히 동일해야 합니다.",
       "default": "A:"
     },
     {
-      "label": "Text for \"retry\" button",
-      "default": "Retry"
+      "label": "시각장애 보조 지원용으로 잘못된 텍스트",
+      "default": "오답입니다. 정답은 @answer였습니다.",
+      "description": "시각장애 보조 지원용 텍스트입니다. @answer를 변수로 사용하십시오."
     },
     {
-      "label": "Case sensitive",
-      "description": "Makes sure the user input has to be exactly the same as the answer."
+      "label": "시각장애 보조 지원을 위한 카드 변경",
+      "default": "@total의 @current 페이지",
+      "description": "카드 사이를 탐색할 때 시각장애 보조 지원용으로 사용되는 텍스트입니다. @current 및 @total을 변수로 사용합니다."
     },
     {
-      "label": "Incorrect text for assistive technologies",
-      "default": "Incorrect answer. Correct answer was @answer",
-      "description": "Text that will be announced to assistive technologies. Use @answer as variable."
+      "label": "오디오 재생 버튼",
+      "default": "재생",
+      "description": "재생 버튼의 텍스트 레이블로, 시각장애 보조 지원에 사용됩니다."
     },
     {
-      "label": "Card change for assistive technologies",
-      "default": "Page @current of @total",
-      "description": "Text that will be announced to assistive technologies when navigating between cards. Use @current and @total as variables."
+      "label": "오디오 일시 중지 버튼",
+      "default": "일시 중지",
+      "description": "일시 중지 버튼의 텍스트 레이블로 시각장애 보조 지원용으로 사용됩니다."
     },
     {
-      "label": "Audio play button",
-      "default": "Play",
-      "description": "Text that will be announced to assistive technologies as label for play button."
+      "label": "오디오가 지원되지 않음 메시지",
+      "default": "귀하의 브라우저는 이 오디오를 지원하지 않습니다.",
+      "description": "브라우저에서 오디오 파일을 재생할 수 없음을 보고하는 텍스트입니다."
     },
     {
-      "label": "Audio pause button",
-      "default": "Pause",
-      "description": "Text that will be announced to assistive technologies as label for pause button."
+      "label": "마이크 듣기 버튼 제목에 대한 시각장애 보조 지원용 텍스트",
+      "default": "듣는 중 ...",
+      "description": "들을 때 마이크 버튼에 대한 시각장애 보조 지원용 텍스트입니다."
     },
     {
-      "label": "Audio not supported message",
-      "default": "Your browser does not support this audio.",
-      "description": "Text to report that the browser cannot play the audio file."
+      "label": "마이크 듣기 버튼 제목에 대한 시각장애 보조 지원용 텍스트",
+      "default": "마이크 액세스 없음",
+      "description": "마이크 버튼에 액세스할 수 없는 경우 사용되는 시각장애 보조용 텍스트입니다."
     },
     {
-      "label": "Microphone listen button title for assistive technologies",
-      "default": "Listening ...",
-      "description": "Text that will be announced to assistive technologies for the microphone button when listening."
+      "label": "마이크 버튼을 눌러 말하기 버튼 제목으로 사용되는 시각장애 보조 지원용 텍스트",
+      "default": "눌러서 말하기",
+      "description": "듣고 있지 않을 때 마이크 버튼에 대한 설명으로, 시각장애 보조 지원용으로 사용됩니다."
     },
     {
-      "label": "Microphone listen button title for assistive technologies",
-      "default": "No microphone Access",
-      "description": "Text that will be announced to assistive technologies for the microphone button if it cannot be accessed."
+      "label": "마이크 듣기 버튼 제목에 대한 시각장애 보조 지원용 텍스트",
+      "default": "마이크 액세스 없음",
+      "description": "마이크 버튼에 액세스할 수 없는 경우 사용되는 시각장애 보조용 텍스트입니다."
     },
     {
-      "label": "Microphone push to speak button title for assistive technologies",
-      "default": "Push to speak",
-      "description": "Text that will be announced to assistive technologies for the microphone button when not listening."
+      "label": "마이크 버튼을 눌러 말하기 버튼 제목으로 사용되는 시각장애 보조 지원용 텍스트",
+      "default": "눌러서 말하기",
+      "description": "듣고 있지 않을 때 마이크 버튼에 대한 설명으로, 시각장애 보조 지원용으로 사용됩니다."
     }
   ]
 }

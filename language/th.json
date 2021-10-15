@@ -1,43 +1,43 @@
 {
   "semantics": [
     {
-      "label": "Descripción del trabajo"
+      "label": "Task description"
     },
     {
       "widgets": [
         {
-          "label": "Predeterminado"
+          "label": "Default"
         }
       ],
-      "label": "Cartas",
-      "entity": "carta",
+      "label": "Cards",
+      "entity": "card",
       "field": {
-        "label": "Carta",
+        "label": "Card",
         "fields": [
           {
-            "label": "Pregunta",
-            "description": "Pregunta opcional de texto para la carta. (La carta podría usar solamente una imagen, solo un texto o ambos)"
+            "label": "Question",
+            "description": "Optional textual question for the card. (The card may use just an image, just a text or both)"
           },
           {
-            "label": "Respuesta",
-            "description": "Respuesta opcional (solución) para la carta. Use a pipe symbol | to split alternative solutions. Use \\| if a solution should contain a |."
+            "label": "Answer",
+            "description": "Optional answer (solution) for the card. Use a pipe symbol | to split alternative solutions. Use \\| if a solution should contain a |."
           },
           {
-            "label": "Imagen",
-            "description": "Imagen opcional para la carta. (La carta podría usar solamente una imagen, solo un texto o ambos)"
+            "label": "Image",
+            "description": "Optional image for the card. (The card may use just an image, just a text or both)"
           },
           {
-            "label": "Texto aternativo para la imagen"
+            "label": "Alternative text for image"
           },
           {
             "label": "Audio",
             "description": "Optional audio for the card."
           },
           {
-            "label": "Pista",
+            "label": "Tip",
             "fields": [
               {
-                "label": "Texto de pista"
+                "label": "Tip text"
               }
             ]
           }
@@ -45,21 +45,21 @@
       }
     },
     {
-      "label": "Texto para Progreso",
-      "default": "Carta @card de @total",
-      "description": "Texto del Progreso, variables disponibles: @card y @total. Ejemplo: 'Carta @card de @total'"
+      "label": "Progress text",
+      "default": "Card @card of @total",
+      "description": "Progress text, variables available: @card and @total. Example: 'Card @card of @total'"
     },
     {
-      "label": "Texto para el botón Siguiente",
-      "default": "Siguiente"
+      "label": "Text for the next button",
+      "default": "Next"
     },
     {
-      "label": "Texto para el botón Anterior",
-      "default": "Anterior"
+      "label": "Text for the previous button",
+      "default": "Previous"
     },
     {
-      "label": "Texto para el botón Revisar respuestas",
-      "default": "Comprobar"
+      "label": "Text for the check answers button",
+      "default": "Check"
     },
     {
       "label": "Allow user to enter answer using speech recognition"
@@ -436,74 +436,64 @@
       ]
     },
     {
-      "label": "Allow user to enter answer using speech recognition"
+      "label": "Require user input before the solution can be viewed"
     },
     {
-      "label": "Language of speech input",
+      "label": "Text for the answer input field",
       "default": "Your answer"
     },
     {
-      "label": "Requerir entrada del usuario antes que la solución pueda ser vista",
+      "label": "Text for correct answer",
       "default": "Correct"
     },
     {
-      "label": "Texto para el campo de ingreso de respuesta",
-      "default": "Su respuesta"
+      "label": "Text for incorrect answer",
+      "default": "Incorrect"
     },
     {
-      "label": "Texto para respuesta correcta",
-      "default": "Correcta"
-    },
-    {
-      "label": "Texto para respuesta incorrecta",
-      "default": "Incorrecta"
-    },
-    {
-      "label": "Mostrar texto de solución",
-      "default": "Respuesta correcta"
+      "label": "Show solution text",
+      "default": "Correct answer"
     },
     {
       "label": "Separator of solution alternatives",
-      "default": "or",
+      "default": "or"
+    },
+    {
+      "label": "Text for results title",
+      "default": "Results"
+    },
+    {
+      "label": "Text for number of correct",
+      "default": "@score of @total correct",
       "description": "Result text, variables available: @score and @total. Example: '@score of @total correct'"
     },
     {
-      "label": "Título para texto de Resultados",
-      "default": "Resultados"
+      "label": "Text for show results",
+      "default": "Show results"
     },
     {
-      "label": "Texto para número de aciertos",
-      "default": "@score de @total correctos",
-      "description": "Texto de Resultados, variables disponibles: @score y @total. Ejemplo: '@score de @total correctos'"
+      "label": "Text for short answer label",
+      "default": "A:",
+      "description": "Results text, available variables: @score and @total. Example: '@score of @total correct'"
     },
     {
-      "label": "Texto para mostrar resultados",
-      "default": "Mostrar resultados"
+      "label": "Text for \"retry\" button",
+      "default": "Retry"
     },
     {
-      "label": "Texto para etiqueta de respuesta corta",
+      "label": "Case sensitive",
       "description": "Makes sure the user input has to be exactly the same as the answer.",
       "default": "A:"
     },
     {
-      "label": "Texto para botón \"reintentar\"",
-      "default": "Reintentar",
+      "label": "Incorrect text for assistive technologies",
+      "default": "Incorrect answer. Correct answer was @answer",
       "description": "Text that will be announced to assistive technologies. Use @answer as variable."
     },
     {
-      "label": "MAYÚSCULAS/minúsculas si importan",
+      "label": "Card change for assistive technologies",
       "default": "Page @current of @total",
-      "description": "Asegurarse que la entrada del usuario tenga que ser exactamente la misma que la respuesta."
-    },
-    {
-      "label": "Texto incorrecto para tecnologías asistivas",
-      "default": "Respuesta incorrecta. La respuesta correcta era @answer",
-      "description": "Texto que será anunciado a tecnologías asistivas. Use @answer como variable."
-    },
-    {
-      "label": "Cambio de Tarjeta para tecnologías asistivas",
-      "default": "Página @current de @total",
-      "description": "Texto que será anunciado a tecnologías asistivas al navegar entre cartas. Use @current y @total como variables."
+      "description": "Text that will be announced to assistive technologies when navigating between cards. Use @current and @total as variables."
     },
     {
       "label": "Audio play button",
@@ -524,6 +514,16 @@
       "label": "Microphone listen button title for assistive technologies",
       "default": "Listening ...",
       "description": "Text that will be announced to assistive technologies for the microphone button when listening."
+    },
+    {
+      "label": "Microphone listen button title for assistive technologies",
+      "default": "No microphone Access",
+      "description": "Text that will be announced to assistive technologies for the microphone button if it cannot be accessed."
+    },
+    {
+      "label": "Microphone push to speak button title for assistive technologies",
+      "default": "Push to speak",
+      "description": "Text that will be announced to assistive technologies for the microphone button when not listening."
     },
     {
       "label": "Microphone listen button title for assistive technologies",
