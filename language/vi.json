@@ -473,8 +473,7 @@
     },
     {
       "label": "Text for short answer label",
-      "default": "A:",
-      "description": "Results text, available variables: @score and @total. Example: '@score of @total correct'"
+      "default": "A:"
     },
     {
       "label": "Text for \"retry\" button",
@@ -482,8 +481,7 @@
     },
     {
       "label": "Case sensitive",
-      "description": "Makes sure the user input has to be exactly the same as the answer.",
-      "default": "A:"
+      "description": "Makes sure the user input has to be exactly the same as the answer."
     },
     {
       "label": "Incorrect text for assistive technologies",

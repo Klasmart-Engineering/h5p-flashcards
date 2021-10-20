@@ -473,8 +473,7 @@
     },
     {
       "label": "Texto para número de aciertos",
-      "default": "@score de @total correctos",
-      "description": "Texto de Resultados, variables disponibles: @score y @total. Ejemplo: '@score de @total correctos'"
+      "default": "@score de @total correctos"
     },
     {
       "label": "Texto para mostrar resultados",
@@ -482,8 +481,7 @@
     },
     {
       "label": "Texto para etiqueta de respuesta corta",
-      "description": "Makes sure the user input has to be exactly the same as the answer.",
-      "default": "A:"
+      "description": "Makes sure the user input has to be exactly the same as the answer."
     },
     {
       "label": "Texto para botón \"reintentar\"",

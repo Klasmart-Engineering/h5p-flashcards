@@ -34,10 +34,6 @@
             "description": "Optional audio for the card."
           },
           {
-            "label": "Audio",
-            "description": "Optional audio for the card."
-          },
-          {
             "label": "Подсказка",
             "fields": [
               {

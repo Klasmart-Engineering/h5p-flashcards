@@ -62,9 +62,6 @@
       "default": "Verifica"
     },
     {
-      "label": "Requereix l’entrada de dades per part de l’usuari abans que es pugui visualitzar la solució"
-    },
-    {
       "label": "Allow user to enter answer using speech recognition"
     },
     {
