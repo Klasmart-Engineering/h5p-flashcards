@@ -496,16 +496,6 @@
       "description": "Asegurarse que la entrada del usuario tenga que ser exactamente la misma que la respuesta."
     },
     {
-      "label": "Texto incorrecto para tecnologías asistivas",
-      "default": "Respuesta incorrecta. La respuesta correcta era @answer",
-      "description": "Texto que será anunciado a tecnologías asistivas. Use @answer como variable."
-    },
-    {
-      "label": "Cambio de Tarjeta para tecnologías asistivas",
-      "default": "Página @current de @total",
-      "description": "Texto que será anunciado a tecnologías asistivas al navegar entre cartas. Use @current y @total como variables."
-    },
-    {
       "label": "Audio play button",
       "default": "Play",
       "description": "Text that will be announced to assistive technologies as label for play button."

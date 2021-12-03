@@ -20,7 +20,7 @@
           },
           {
             "label": "Answer",
-            "description": "Optional answer(solution) for the card. Use a pipe symbol | to split alternative solutions. Use \\| if a solution should contain a |."
+            "description": "Optional answer (solution) for the card. Use a pipe symbol | to split alternative solutions. Use \\| if a solution should contain a |."
           },
           {
             "label": "Image",
@@ -514,16 +514,6 @@
       "label": "Microphone listen button title for assistive technologies",
       "default": "Listening ...",
       "description": "Text that will be announced to assistive technologies for the microphone button when listening."
-    },
-    {
-      "label": "Microphone listen button title for assistive technologies",
-      "default": "No microphone Access",
-      "description": "Text that will be announced to assistive technologies for the microphone button if it cannot be accessed."
-    },
-    {
-      "label": "Microphone push to speak button title for assistive technologies",
-      "default": "Push to speak",
-      "description": "Text that will be announced to assistive technologies for the microphone button when not listening."
     },
     {
       "label": "Microphone listen button title for assistive technologies",

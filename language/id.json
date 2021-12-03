@@ -524,16 +524,6 @@
       "label": "Microphone push to speak button title for assistive technologies",
       "default": "Push to speak",
       "description": "Text that will be announced to assistive technologies for the microphone button when not listening."
-    },
-    {
-      "label": "Microphone listen button title for assistive technologies",
-      "default": "No microphone Access",
-      "description": "Text that will be announced to assistive technologies for the microphone button if it cannot be accessed."
-    },
-    {
-      "label": "Microphone push to speak button title for assistive technologies",
-      "default": "Push to speak",
-      "description": "Text that will be announced to assistive technologies for the microphone button when not listening."
     }
   ]
 }
