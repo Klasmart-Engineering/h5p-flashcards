@@ -639,7 +639,14 @@ H5P.Flashcards = (function ($, XapiGenerator) {
        is running, and the card will be misplaced */
     $card.one('transitionend', function () {
       if ($card.hasClass('h5p-current') && !$card.find('.h5p-textinput')[0].disabled) {
-        $card.find('.h5p-textinput').focus();
+        if (window.orientation === 90) {
+          setTimeout(function () {
+            $card.find('.h5p-textinput').focus();
+          }, 200); // Extra timeout before keyboard opens on mobile/landscape
+        }
+        else {
+          $card.find('.h5p-textinput').focus();
+        }
       }
       setTimeout(function () {
         this.announceCurrentPage();
