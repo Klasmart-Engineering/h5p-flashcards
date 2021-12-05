@@ -313,7 +313,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
             '</div>' +
             '<div class="h5p-answer">' +
               '<div class="h5p-input">' +
-                '<input type="text" class="h5p-textinput" tabindex="-1" placeholder="' + this.options.defaultAnswerText + '" aria-describedby="h5p-flashcard-card-' + cardId +'" autocomplete="off" spellcheck="false"/>' +
+                '<input type="text" class="h5p-textinput" tabindex="-1" placeholder="' + this.options.defaultAnswerText + '" aria-describedby="h5p-flashcard-card-' + cardId + '" autocomplete="off" spellcheck="false"/>' +
                 '<button type="button" class="h5p-button h5p-check-button" tabindex="-1" title="' + this.options.checkAnswerText + '">' + this.options.checkAnswerText + '</button>' +
                 '<button type="button" class="h5p-button h5p-icon-button" tabindex="-1" title="' + this.options.checkAnswerText + '"/>' +
               '</div>' +
@@ -411,7 +411,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       var userCorrect = isCorrectAnswer(card, userAnswer, that.options.caseSensitive);
       var done = false;
 
-      if (userAnswer == '') {
+      if (userAnswer === '') {
         $input.focus();
       }
 
@@ -493,16 +493,16 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    * Reset audio from button.
    * @param {number} [id] Id of button to be reset.
    */
-  C.prototype.resetAudio = function(id) {
+  C.prototype.resetAudio = function (id) {
     if (typeof id === 'number' && id >= 0 && id < this.audioButtons.length) {
       this.audioButtons[id].resetAudio();
       return;
     }
 
-    this.audioButtons.forEach(function(button) {
+    this.audioButtons.forEach(function (button) {
       button.resetAudio();
     });
-  }
+  };
 
   /**
    * Create result screen
@@ -566,7 +566,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         'class': 'h5p-results-image-holder',
       }).appendTo($listItem);
 
-      if (card.image != undefined) {
+      if (card.image !== undefined) {
         $imageHolder.css('background-image', 'url("' + H5P.getPath(card.image.path, this.id) + '")');
       }
       else {
@@ -700,7 +700,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     that.$prevButton.removeClass('h5p-hidden');
     that.setProgress();
 
-    if ($next.is(':last-child') && that.numAnswered == that.getMaxScore()) {
+    if ($next.is(':last-child') && that.numAnswered === that.getMaxScore()) {
       that.$container.find('.h5p-show-results').show();
     }
   };
@@ -751,7 +751,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    * @private
    */
   C.prototype.resetTask = function () {
-    this.speechRecognitions.forEach(function(button) {
+    this.speechRecognitions.forEach(function (button) {
       button.enableButton();
     });
 
@@ -841,7 +841,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         .addClass('h5p-mobile')
         .css('width', '');
     }
-    else if (freeSpaceRight != 'auto') {
+    else if (freeSpaceRight !== 'auto') {
       this.$container.find('.h5p-show-results')
         .removeClass('h5p-mobile')
         .width(freeSpaceRight);

@@ -146,7 +146,7 @@
    * Handle played
    */
   Flashcards.AudioButton.prototype.handlePlayed = function () {
-  }
+  };
 
   /**
    * Set the title label and the aria label.
@@ -207,7 +207,7 @@
     if (this.button) {
       this.audio.disableToggleButton();
     }
-  }
+  };
 
   /**
    * Check if button is enabled.
@@ -246,7 +246,7 @@
     return {
       audio: this.audio ? this.audio.getCurrentState() : undefined
     };
-  }
+  };
 
   /**
    * Focus button.
