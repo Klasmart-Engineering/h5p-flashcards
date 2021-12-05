@@ -46,15 +46,21 @@
   position: absolute;
   display: block;
   vertical-align: middle;
-  width: 26em;
   min-width: 14em;
-  max-width: 90%;
   margin: 0 auto;
   left: 0;
   right: 0;
   transition: transform 0.6s;
   transform: translateX(0);
   z-index: 1;
+}
+
+.h5p-flashcards:not(.h5p-landscape) .h5p-card {
+  width: 26em;
+}
+
+.h5p-flashcards.h5p-landscape .h5p-card {
+  width: 40em;
 }
 
 .h5p-flashcards .h5p-card.left {
@@ -129,9 +135,21 @@
   filter: grayscale(100%);
 }
 
+.h5p-flashcards .h5p-card .h5p-cardholder {
+  display: flex;
+}
+
 .h5p-flashcards .h5p-card.h5p-current .h5p-cardholder {
   background-color: white;
   border-color: white;
+}
+
+.h5p-flashcards:not(.h5p-landscape) .h5p-card .h5p-cardholder {
+  flex-direction: column;
+}
+
+.h5p-flashcards.h5p-landscape .h5p-card .h5p-cardholder {
+  flex-direction: row;
 }
 
 .h5p-flashcards .h5p-cardholder {
@@ -173,11 +191,20 @@
   justify-content: center;
 
   position: relative;
-  margin: 1em 1em 0 1em;
   padding: 1em;
-  height: 18em;
   background-color: #c8e0e3;
+}
+
+.h5p-flashcards:not(.h5p-landscape) .h5p-imageholder {
   border-radius: 2em 2em 0 0;
+  height: 18em;
+  margin: 1em 1em 0 1em;
+}
+
+.h5p-flashcards.h5p-landscape .h5p-imageholder {
+  border-radius: 2em 0 0 2em;
+  width: 100%;
+  margin: 1em 0 1em 1em;
 }
 
 .h5p-flashcards .h5p-imageholder.h5p-image-only {
@@ -230,10 +257,22 @@
 }
 
 .h5p-flashcards .h5p-foot {
-  margin: 0 1em 1em 1em;
   padding: 0 1em 1em 1em;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.h5p-flashcards:not(.h5p-landscape) .h5p-foot {
   border-radius: 0 0 2em 2em;
+  margin: 0 1em 1em 1em;
+}
+
+.h5p-flashcards.h5p-landscape .h5p-foot {
+  border-radius: 0 2em 2em 0;
+  justify-content: center;
+  margin: 1em;
+  width: 100%;
 }
 
 .h5p-flashcards .h5p-foot.h5p-no-answer {
@@ -323,13 +362,16 @@
   overflow: hidden;
   max-width: 32em;
   padding: 0.75em;
-  margin: auto;
   color: #27344e;
   font-size: 1.5em;
   line-height: 1em;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.h5p-flashcards:not(.h5p-landscape) .h5p-imagetext {
+  margin: auto;
 }
 
 .h5p-flashcards .h5p-imagetext:first-letter {
@@ -955,9 +997,16 @@ button::-moz-focus-inner {
 .h5p-flashcards .h5p-flashcards-audio-button-wrapper {
   font-size: 1.5em;
   position: absolute;
-  right: -.25em;
   top: -.25em;
   z-index: 1;
+}
+
+.h5p-flashcards:not(.h5p-landscape) .h5p-flashcards-audio-button-wrapper {
+  right: -.25em;
+}
+
+.h5p-flashcards.h5p-landscape .h5p-flashcards-audio-button-wrapper {
+  left: -.25em;
 }
 
 .h5p-flashcards .h5p-flashcards-audio-button-wrapper .h5p-audio-minimal-button {

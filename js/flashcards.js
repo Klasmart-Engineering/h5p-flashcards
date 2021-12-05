@@ -793,6 +793,14 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     var maxHeight = 0;
     var maxHeightImage = 0;
 
+    // Change landscape layout on mobile
+    if (typeof window.orientation === 'number') {
+      this.$container.toggleClass('h5p-landscape', window.orientation === 90);
+    }
+
+    this.containerStyle = this.containerStyle || getComputedStyle(this.$container.get(0));
+    const fontSize = parseInt(this.containerStyle.getPropertyValue('font-size'));
+
     if (this.$inner.width() / parseFloat($("body").css("font-size")) <= 31) {
       self.$container.addClass('h5p-mobile');
     }
@@ -800,8 +808,17 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       self.$container.removeClass('h5p-mobile');
     }
 
+    const displayLimits = self.computeDisplayLimits();
+
     //Find container dimensions needed to encapsule image and text.
     self.$inner.children('.h5p-card').each(function () {
+
+      // Limit card size, 8 and 4 are default margins and paddings
+      $(this).css({
+        'max-width': (displayLimits.width - 8 * fontSize) + 'px',
+        'max-height': (displayLimits.height - 4 * fontSize) + 'px'
+      });
+
       var cardholderHeight = maxHeightImage + $(this).find('.h5p-foot').outerHeight();
       var $button = $(this).find('.h5p-check-button');
       var $tipIcon = $(this).find('.joubel-tip-container');
@@ -846,6 +863,30 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         .removeClass('h5p-mobile')
         .width(freeSpaceRight);
     }
+
+    // Reduce font size if mobile landscape
+    if (window.orientation === 90) {
+      this.$inner.children('.h5p-card').each(function () {
+        // Limit card height, 10 is default margins and paddings
+        $(this).find('.h5p-imageholder').css({
+          'max-height': (displayLimits.height - 10 * fontSize) + 'px'
+        });
+
+        const $text = $(this).find('.h5p-imagetext');
+        const textHeight = parseFloat(getComputedStyle($text.get(0)).getPropertyValue('height'));
+        const answerHeight = $(this).find('.h5p-answer').get(0).offsetHeight;
+
+        if (textHeight / answerHeight > 6) {
+          $text.css('font-size', '1em');
+        }
+        else if (textHeight / answerHeight > 4) {
+          $text.css('font-size', '1.25em');
+        }
+        else {
+          $text.css('font-size', '');
+        }
+      });
+    }
   };
 
   /**
@@ -887,6 +928,51 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     const xAPIEvent = XapiGenerator.getXapiEvent(this);
     return {
       statement: xAPIEvent.data.statement
+    };
+  };
+
+  /**
+	 * Get top DOM Window object.
+	 * @param {Window} [startWindow=window] Window to start looking from.
+	 * @return {Window|null} Top window.
+	 */
+  C.prototype.getTopWindow = function (startWindow) {
+    var sameOrigin;
+    startWindow = startWindow || window;
+
+    // H5P iframe may be on different domain than iframe content
+    try {
+      sameOrigin = startWindow.parent.location.host === window.location.host;
+    }
+    catch (error) {
+      sameOrigin = null;
+    }
+
+    if (!sameOrigin) {
+      return null;
+    }
+
+    if (startWindow.parent === startWindow || ! startWindow.parent) {
+      return startWindow;
+    }
+
+    return this.getTopWindow(startWindow.parent);
+  };
+
+  /**
+   * Compute display limits.
+   * @return {object|null} Height and width in px or null if cannot be determined.
+   */
+  C.prototype.computeDisplayLimits = function () {
+    const topWindow = this.getTopWindow();
+    if (!topWindow) {
+      return null;
+    }
+
+    // Smallest value of viewport and container wins
+    return {
+      height: Math.min(topWindow.innerHeight),
+      width: Math.min(topWindow.innerWidth, this.$container.get(0).offsetWidth)
     };
   };
 
