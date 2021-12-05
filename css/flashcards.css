@@ -204,13 +204,17 @@
 .h5p-flashcards.h5p-landscape .h5p-imageholder {
   border-radius: 2em 0 0 2em;
   width: 100%;
-  margin: 1em 0 1em 1em;
+  margin: 1em;
 }
 
 .h5p-flashcards .h5p-imageholder.h5p-image-only {
   margin-bottom: 1em;
   border-bottom-left-radius: 2em;
   border-bottom-right-radius: 2em;
+}
+
+.h5p-flashcards.h5p-landscape .h5p-imageholder.h5p-image-only {
+  border-radius: 2em;
 }
 
 .h5p-flashcards .h5p-card .h5p-clue {
