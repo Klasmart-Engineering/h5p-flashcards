@@ -14,6 +14,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    * @param {Number} id Content identification
    */
   function C(options, id) {
+    const that = this;
+
     H5P.EventDispatcher.call(this);
     this.answers = [];
     this.numAnswered = 0;
@@ -971,7 +973,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     // Smallest value of viewport and container wins
     return {
-      height: Math.min(topWindow.innerHeight),
+      height: Math.min(topWindow.innerHeight, screen.height),
       width: Math.min(topWindow.innerWidth, this.$container.get(0).offsetWidth)
     };
   };
