@@ -975,11 +975,11 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    * @return {object|null} Height and width in px or null if cannot be determined.
    */
   C.prototype.computeDisplayLimits = function () {
-    const topWindow = this.getTopWindow();
-    if (!topWindow) {
-      console.warn('H5P.Flashcards: Cannot access parent iframe and thus cannot detect viewport size to limit card size.');
-      return null;
-    }
+    let topWindow = this.getTopWindow();
+    topWindow = topWindow || {
+      innerHeight: screen.height,
+      innerWidth: screen.width
+    };
 
     // Smallest value of viewport and container wins
     return {
