@@ -822,11 +822,13 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     //Find container dimensions needed to encapsule image and text.
     self.$inner.children('.h5p-card').each(function () {
 
-      // Limit card size, 8 and 4 are default margins and paddings
-      $(this).css({
-        'max-width': (displayLimits.width - 8 * fontSize) + 'px',
-        'max-height': (displayLimits.height - 4 * fontSize) + 'px'
-      });
+      if (displayLimits) {
+        // Limit card size, 8 and 4 are default margins and paddings
+        $(this).css({
+          'max-width': (displayLimits.width - 8 * fontSize) + 'px',
+          'max-height': (displayLimits.height - 4 * fontSize) + 'px'
+        });
+      }
 
       var cardholderHeight = maxHeightImage + $(this).find('.h5p-foot').outerHeight();
       var $button = $(this).find('.h5p-check-button');
@@ -877,9 +879,11 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     if (window.orientation === 90) {
       this.$inner.children('.h5p-card').each(function () {
         // Limit card height, 10 is default margins and paddings
-        $(this).find('.h5p-imageholder').css({
-          'max-height': (displayLimits.height - 10 * fontSize) + 'px'
-        });
+        if (displayLimits) {
+          $(this).find('.h5p-imageholder').css({
+            'max-height': (displayLimits.height - 10 * fontSize) + 'px'
+          });
+        }
 
         const $text = $(this).find('.h5p-imagetext');
         const textHeight = parseFloat(getComputedStyle($text.get(0)).getPropertyValue('height'));
@@ -975,6 +979,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
   C.prototype.computeDisplayLimits = function () {
     const topWindow = this.getTopWindow();
     if (!topWindow) {
+      console.warn('H5P.Flashcards: Cannot access parent iframe and thus cannot detect viewport size to limit card size.');
       return null;
     }
 
