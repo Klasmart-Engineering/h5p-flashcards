@@ -14,8 +14,6 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    * @param {Number} id Content identification
    */
   function C(options, id) {
-    const that = this;
-
     H5P.EventDispatcher.call(this);
     this.answers = [];
     this.numAnswered = 0;
