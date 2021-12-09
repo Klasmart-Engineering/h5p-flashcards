@@ -867,6 +867,13 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         $(this).find('.h5p-clue')
           .toggleClass('h5p-small', displayLimits.height - 4 * baseFontSize < 152);
       }
+      else {
+        // Limit card size, 8 and 4 are default margins and paddings
+        $(this).css({
+          'max-width': '',
+          'max-height': ''
+        });
+      }
 
       var cardholderHeight = maxHeightImage + $(this).find('.h5p-foot').outerHeight();
       var $button = $(this).find('.h5p-check-button');
@@ -1044,16 +1051,33 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    */
   C.prototype.computeDisplayLimits = function () {
     let topWindow = this.getTopWindow();
+
+    // iOS doesn't change screen dimensions on rotation
+    let screenSize = (this.isIOS() && window.orientation === 90) ?
+      { height: screen.width, width: screen.height } :
+      { height: screen.height, width: screen.width };
+
     topWindow = topWindow || {
-      innerHeight: screen.height,
-      innerWidth: screen.width
+      innerHeight: screenSize.height,
+      innerWidth: screenSize.width
     };
 
     // Smallest value of viewport and container wins
     return {
-      height: Math.min(topWindow.innerHeight, screen.height),
+      height: Math.min(topWindow.innerHeight, screenSize.height),
       width: Math.min(topWindow.innerWidth, this.$container.get(0).offsetWidth)
     };
+  };
+
+  /**
+   * Detect whether user is running iOS.
+   * @return {boolean} True, if user is running iOS.
+   */
+  C.prototype.isIOS = function () {
+    return (
+      ['iPad Simulator', 'iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(navigator.platform) ||
+      (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
+    );
   };
 
   return C;
