@@ -14,6 +14,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    * @param {Number} id Content identification
    */
   function C(options, id) {
+    const that = this;
+
     H5P.EventDispatcher.call(this);
     this.answers = [];
     this.numAnswered = 0;
@@ -53,11 +55,40 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     this.speechRecognitions = [];
 
     this.on('resize', this.resize, this);
+
+    // Workaround for iOS
+    if (screen.orientation) {
+      screen.orientation.addEventListener('change', function () {
+        that.handleOrientationChange();
+      });
+    }
+    else {
+      window.addEventListener('orientationchange', function () {
+        that.handleOrientationChange();
+      });
+    }
   }
 
   C.prototype = Object.create(H5P.EventDispatcher.prototype);
   C.prototype.constructor = C;
 
+  C.prototype.handleOrientationChange = function () {
+    const that = this;
+
+    clearTimeout(this.orientationChangeTimeout);
+    this.orientationChangeTimeout = setTimeout(function () {
+      if (
+        that.$inner &&
+        document.activeElement &&
+        document.activeElement.classList.contains('h5p-textinput')
+      ) {
+        that.previousFocus = document.activeElement;
+        document.activeElement.blur();
+      }
+
+      that.trigger('resize');
+    }, 250);
+  };
 
   /**
    * Append field to wrapper.
@@ -369,7 +400,9 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         },
         {
           onResult: (result) => {
-            $card.find('.h5p-textinput').val(result.phrases[0]).focus();
+            if (window.orientation !== 90) {
+              $card.find('.h5p-textinput').val(result.phrases[0]).focus();
+            }
           }
         }
       );
@@ -411,7 +444,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       var userCorrect = isCorrectAnswer(card, userAnswer, that.options.caseSensitive);
       var done = false;
 
-      if (userAnswer === '') {
+      if (userAnswer === '' && window.orientation !== 90) {
         $input.focus();
       }
 
@@ -637,12 +670,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
        is running, and the card will be misplaced */
     $card.one('transitionend', function () {
       if ($card.hasClass('h5p-current') && !$card.find('.h5p-textinput')[0].disabled) {
-        if (window.orientation === 90) {
-          setTimeout(function () {
-            $card.find('.h5p-textinput').focus();
-          }, 200); // Extra timeout before keyboard opens on mobile/landscape
-        }
-        else {
+        if (window.orientation !== 90) {
           $card.find('.h5p-textinput').focus();
         }
       }
@@ -800,13 +828,22 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     var maxHeight = 0;
     var maxHeightImage = 0;
 
+    // Don't resize if trigger was opening/closing virtual keyboard on mobile
+    if (
+      window.orientation === 90 &&
+      document.activeElement &&
+      document.activeElement.classList.contains('h5p-textinput')
+    ) {
+      return;
+    }
+
     // Change landscape layout on mobile
     if (typeof window.orientation === 'number') {
       this.$container.toggleClass('h5p-landscape', window.orientation === 90);
     }
 
     this.containerStyle = this.containerStyle || getComputedStyle(this.$container.get(0));
-    const fontSize = parseInt(this.containerStyle.getPropertyValue('font-size'));
+    const baseFontSize = parseInt(this.containerStyle.getPropertyValue('font-size'));
 
     if (this.$inner.width() / parseFloat($("body").css("font-size")) <= 31) {
       self.$container.addClass('h5p-mobile');
@@ -820,12 +857,15 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     //Find container dimensions needed to encapsule image and text.
     self.$inner.children('.h5p-card').each(function () {
 
-      if (displayLimits) {
+      if (displayLimits && window.orientation === 90) {
         // Limit card size, 8 and 4 are default margins and paddings
         $(this).css({
-          'max-width': (displayLimits.width - 8 * fontSize) + 'px',
-          'max-height': (displayLimits.height - 4 * fontSize) + 'px'
+          'max-width': (displayLimits.width - 8 * baseFontSize) + 'px',
+          'max-height': (displayLimits.height - 4 * baseFontSize) + 'px'
         });
+
+        $(this).find('.h5p-clue')
+          .toggleClass('h5p-small', displayLimits.height - 4 * baseFontSize < 152);
       }
 
       var cardholderHeight = maxHeightImage + $(this).find('.h5p-foot').outerHeight();
@@ -848,18 +888,6 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       }
     });
 
-    if (this.numAnswered < this.options.cards.length) {
-      //Resize cards holder
-      var innerHeight = 0;
-      this.$inner.children('.h5p-card').each(function () {
-        if ($(this).height() > innerHeight) {
-          innerHeight = $(this).height();
-        }
-      });
-
-      this.$inner.height(innerHeight);
-    }
-
     var freeSpaceRight = this.$inner.children('.h5p-card').last().css("marginRight");
 
     if (parseInt(freeSpaceRight) < 160) {
@@ -874,29 +902,69 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     }
 
     // Reduce font size if mobile landscape
-    if (window.orientation === 90) {
+    if (displayLimits && window.orientation === 90) {
       this.$inner.children('.h5p-card').each(function () {
-        // Limit card height, 10 is default margins and paddings
-        if (displayLimits) {
-          $(this).find('.h5p-imageholder').css({
-            'max-height': (displayLimits.height - 10 * fontSize) + 'px'
+        // Limit card height, 4 and 6 are default margins and paddings
+        $(this).find('.h5p-cardholder').css({
+          'height': (displayLimits.height - 4 * baseFontSize) + 'px'
+        });
+
+        $(this).find('.h5p-foot').css({
+          'max-height': (displayLimits.height - 6 * baseFontSize) + 'px'
+        });
+
+        const imageText = $(this).find('.h5p-imagetext').get(0);
+        if (imageText.scrollHeight > imageText.offsetHeight) {
+          const style = window.getComputedStyle($(this).find('.h5p-imagetext').get(0));
+          const lineHeight = parseFloat(style.getPropertyValue('line-height'));
+          const paddingVertical = parseFloat(style.getPropertyValue('padding-top')) + parseFloat(style.getPropertyValue('padding-bottom'));
+          const lines = Math.ceil((imageText.scrollHeight - paddingVertical) / lineHeight);
+          const fontSizeLimit = imageText.offsetHeight / lines;
+
+          scaleLevels = [1.25, 1, 0.75];
+          scaleLevels.some(function (scaleLevel) {
+            if (baseFontSize * scaleLevel >= fontSizeLimit) {
+              return false;
+            }
+
+            imageText.style.fontSize = scaleLevel + 'em';
+            return true;
           });
         }
+      });
+    }
+    else {
+      this.$inner.children('.h5p-card').each(function () {
+        $(this).find('.h5p-cardholder').css({
+          'height': ''
+        });
+        $(this).find('.h5p-imageholder').css({
+          'max-height': ''
+        });
+        $(this).find('.h5p-foot').css({
+          'max-height': ''
+        });
+      });
+    }
 
-        const $text = $(this).find('.h5p-imagetext');
-        const textHeight = parseFloat(getComputedStyle($text.get(0)).getPropertyValue('height'));
-        const answerHeight = $(this).find('.h5p-answer').get(0).offsetHeight;
-
-        if (textHeight / answerHeight > 6) {
-          $text.css('font-size', '1em');
-        }
-        else if (textHeight / answerHeight > 4) {
-          $text.css('font-size', '1.25em');
-        }
-        else {
-          $text.css('font-size', '');
+    if (this.numAnswered < this.options.cards.length) {
+      //Resize cards holder
+      var innerHeight = 0;
+      this.$inner.children('.h5p-card').each(function () {
+        if ($(this).height() > innerHeight) {
+          innerHeight = $(this).height();
         }
       });
+
+      this.$inner.height(innerHeight);
+    }
+
+    // Give focus back after orientation change
+    if (self.previousFocus) {
+      if (window.orientation === 0) {
+        self.previousFocus.focus();
+      }
+      self.previousFocus = null;
     }
   };
 
