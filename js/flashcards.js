@@ -858,8 +858,11 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     self.$inner.children('.h5p-card').each(function () {
 
       // Prevent huge cards on larger displays
-      if (displayLimits.height >= 640) {
-        displayLimits.height = Math.min(displayLimits.height, displayLimits.width / 16 * 9);
+      if (displayLimits.height >= C.PAD_LANDSCAPE_MIN_HEIGHT) {
+        displayLimits.height = Math.min(
+          displayLimits.height,
+          displayLimits.width / 16 * 9 // 16/9 as desired format
+        );
       }
 
       if (displayLimits && window.orientation === 90) {
@@ -933,8 +936,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
           const lines = Math.ceil((imageText.scrollHeight - paddingVertical) / lineHeight);
           const fontSizeLimit = imageText.offsetHeight / lines;
 
-          scaleLevels = [1.25, 1, 0.75];
-          scaleLevels.some(function (scaleLevel) {
+          C.FONT_SCALE_LEVELS.some(function (scaleLevel) {
             if (baseFontSize * scaleLevel >= fontSizeLimit) {
               return false;
             }
@@ -1080,10 +1082,16 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    */
   C.prototype.isIOS = function () {
     return (
-      ['iPad Simulator', 'iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(navigator.platform) ||
+      ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(navigator.platform) ||
       (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
     );
   };
+
+  /** @const {number} Breakpoint for pad height in landscape orientation */
+  C.PAD_LANDSCAPE_MIN_HEIGHT = 640;
+
+  /** @const {number[]} Scale levels for fonts */
+  C.FONT_SCALE_LEVELS = [1.25, 1, 0.75];
 
   return C;
 })(H5P.jQuery, H5P.Flashcards.xapiGenerator);
