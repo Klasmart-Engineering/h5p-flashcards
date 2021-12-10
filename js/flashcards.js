@@ -857,6 +857,11 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     //Find container dimensions needed to encapsule image and text.
     self.$inner.children('.h5p-card').each(function () {
 
+      // Prevent huge cards on larger displays
+      if (displayLimits.height >= 640) {
+        displayLimits.height = Math.min(displayLimits.height, displayLimits.width / 16 * 9);
+      }
+
       if (displayLimits && window.orientation === 90) {
         // Limit card size, 8 and 4 are default margins and paddings
         $(this).css({
