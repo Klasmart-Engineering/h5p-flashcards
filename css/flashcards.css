@@ -211,8 +211,11 @@
 
 .h5p-flashcards.h5p-landscape .h5p-imageholder {
   border-radius: 2em 0 0 2em;
-  width: 100%;
+  flex-basis: calc(50% - 4em);
+  flex-grow: 0;
+  flex-shrink: 0;
   margin: 1em;
+  max-width: calc(50% - 4em);
 }
 
 .h5p-flashcards .h5p-imageholder.h5p-image-only {
@@ -263,7 +266,7 @@
 .h5p-flashcards .h5p-card div.h5p-clue:after {
   content: "\f03e";
   font-family: 'H5PFontAwesome4';
-  font-size: 7em;
+  font-size: min(7em, 15vw);
   line-height: 100px;
   color: #a3b7be;
 }
@@ -287,10 +290,14 @@
 
 .h5p-flashcards.h5p-landscape .h5p-foot {
   border-radius: 0 2em 2em 0;
+  flex-basis: calc(50% - 2em);
+  flex-grow: 0;
+  flex-shrink: 0;
   justify-content: center;
   margin: 1em;
-  padding: 1em;
-  width: 100%;
+  max-width: calc(50% - 2em);
+  padding-bottom: 1em;
+  padding-top: 1em;
 }
 
 .h5p-flashcards .h5p-foot.h5p-no-answer {
@@ -385,6 +392,7 @@
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-wrap: anywhere;
 }
 
 .h5p-flashcards:not(.h5p-landscape) .h5p-imagetext {

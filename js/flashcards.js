@@ -738,6 +738,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     if ($next.is(':last-child') && that.numAnswered === that.getMaxScore()) {
       that.$container.find('.h5p-show-results').show();
     }
+
+    that.trigger('resize');
   };
 
   /**
@@ -763,6 +765,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     that.$nextButton.removeClass('h5p-hidden');
     that.setProgress();
     that.$container.find('.h5p-show-results').hide();
+
+    that.trigger('resize');
   };
 
   /**
@@ -901,6 +905,17 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         var emSize = parseInt($textInput.css('font-size'));
         $textInput.css('padding-right', $button.outerWidth() + ($textInput.parent().hasClass('has-tip') ? emSize * 2.5 : emSize));
       }
+
+      const $answer = $(this).find('.h5p-answer');
+
+      if ($(this).find('.h5p-foot').width() < $textInput.outerWidth()) {
+        let fontSizeEm = 1;
+
+        while (fontSizeEm > 0.1 && $(this).find('.h5p-foot').width() < $textInput.outerWidth()) {
+          $answer.css('fontSize', fontSizeEm + 'em');
+          fontSizeEm -= 0.1;
+        }
+      }
     });
 
     var freeSpaceRight = this.$inner.children('.h5p-card').last().css("marginRight");
@@ -919,6 +934,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     // Reduce font size if mobile landscape
     if (displayLimits && window.orientation === 90) {
       this.$inner.children('.h5p-card').each(function () {
+
         // Limit card height, 4 and 6 are default margins and paddings
         $(this).find('.h5p-cardholder').css({
           'height': (displayLimits.height - 4 * baseFontSize) + 'px'
@@ -936,7 +952,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
           const lines = Math.ceil((imageText.scrollHeight - paddingVertical) / lineHeight);
           const fontSizeLimit = imageText.offsetHeight / lines;
 
-          C.FONT_SCALE_LEVELS.some(function (scaleLevel) {
+          const fontResized = C.FONT_SCALE_LEVELS_IMAGE_TEXT.some(function (scaleLevel) {
             if (baseFontSize * scaleLevel >= fontSizeLimit) {
               return false;
             }
@@ -944,6 +960,12 @@ H5P.Flashcards = (function ($, XapiGenerator) {
             imageText.style.fontSize = scaleLevel + 'em';
             return true;
           });
+
+          if (!fontResized) {
+            imageText.style.fontSize = C.FONT_SCALE_LEVELS_IMAGE_TEXT.reduce(function (a, b) {
+              return Math.min(a, b);
+            }) + 'em';
+          }
         }
       });
     }
@@ -1090,8 +1112,11 @@ H5P.Flashcards = (function ($, XapiGenerator) {
   /** @const {number} Breakpoint for pad height in landscape orientation */
   C.PAD_LANDSCAPE_MIN_HEIGHT = 640;
 
-  /** @const {number[]} Scale levels for fonts */
-  C.FONT_SCALE_LEVELS = [1.25, 1, 0.75];
+  /** @const {number[]} Scale levels for font of image text */
+  C.FONT_SCALE_LEVELS_IMAGE_TEXT = [1.25, 1, 0.75];
+
+  /** @const {number[]} Scale levels for font of answer field */
+  C.FONT_SCALE_LEVELS_ANSWER = [0.75, 0.6, 0.5];
 
   return C;
 })(H5P.jQuery, H5P.Flashcards.xapiGenerator);
