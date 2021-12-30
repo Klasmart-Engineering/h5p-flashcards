@@ -67,6 +67,14 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         that.handleOrientationChange();
       });
     }
+
+    /*
+     * Workaround (hopefully temporary) for KidsLoopLive that for whatever
+     * reason does not use h5p-resizer.js.
+     */
+    window.addEventListener('resize', function () {
+      that.resize();
+    });
   }
 
   C.prototype = Object.create(H5P.EventDispatcher.prototype);
@@ -856,7 +864,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       self.$container.removeClass('h5p-mobile');
     }
 
-    const displayLimits = self.computeDisplayLimits();
+    const displayLimits = self.computeDisplayLimitsKLL();
 
     //Find container dimensions needed to encapsule image and text.
     self.$inner.children('.h5p-card').each(function () {
@@ -906,15 +914,24 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         $textInput.css('padding-right', $button.outerWidth() + ($textInput.parent().hasClass('has-tip') ? emSize * 2.5 : emSize));
       }
 
+      // Workaround for very narrow landscape displays
       const $answer = $(this).find('.h5p-answer');
+      if (displayLimits && window.orientation === 90) {
+        if ($(this).find('.h5p-foot').width() < $textInput.outerWidth()) {
+          let fontSizeEm = 1;
 
-      if ($(this).find('.h5p-foot').width() < $textInput.outerWidth()) {
-        let fontSizeEm = 1;
-
-        while (fontSizeEm > 0.1 && $(this).find('.h5p-foot').width() < $textInput.outerWidth()) {
-          $answer.css('fontSize', fontSizeEm + 'em');
-          fontSizeEm -= 0.1;
+          while (
+            fontSizeEm > 0.1 &&
+            $(this).find('.h5p-foot').width() < $textInput.outerWidth() ||
+            ($(this).find('.h5p-button.h5p-icon-button').outerWidth() / $(this).find('.h5p-input').outerWidth()) > 0.2
+          ) {
+            $answer.css('fontSize', fontSizeEm + 'em');
+            fontSizeEm -= 0.1;
+          }
         }
+      }
+      else {
+        $answer.css('fontSize', '');
       }
     });
 
@@ -1052,7 +1069,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 	 * @return {Window|null} Top window.
 	 */
   C.prototype.getTopWindow = function (startWindow) {
-    var sameOrigin;
+    let sameOrigin;
     startWindow = startWindow || window;
 
     // H5P iframe may be on different domain than iframe content
@@ -1072,6 +1089,18 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     }
 
     return this.getTopWindow(startWindow.parent);
+  };
+
+  /**
+   * Compute display limits for KidsLoop Live.
+   * @return {object|null} Height and width in px or null if cannot be determined.
+   */
+  C.prototype.computeDisplayLimitsKLL = function () {
+    const displayLimits = this.computeDisplayLimits();
+
+    // This only works because KLL enforces height on H5P's iframe
+    displayLimits.height = Math.min(displayLimits.height, document.body.offsetHeight);
+    return displayLimits;
   };
 
   /**
