@@ -864,13 +864,14 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       self.$container.removeClass('h5p-mobile');
     }
 
-    const displayLimits = self.computeDisplayLimitsKLL();
+    const displayLimits = (this.isRoot()) ? self.computeDisplayLimitsKLL() : null;
 
     //Find container dimensions needed to encapsule image and text.
     self.$inner.children('.h5p-card').each(function () {
 
       // Prevent huge cards on larger displays
-      if (displayLimits.height >= C.PAD_LANDSCAPE_MIN_HEIGHT) {
+      if (displayLimits &&
+        displayLimits.height >= C.PAD_LANDSCAPE_MIN_HEIGHT) {
         displayLimits.height = Math.min(
           displayLimits.height,
           displayLimits.width / 16 * 9 // 16/9 as desired format
