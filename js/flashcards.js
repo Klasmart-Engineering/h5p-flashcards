@@ -1112,7 +1112,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     let topWindow = this.getTopWindow();
 
     // iOS doesn't change screen dimensions on rotation
-    let screenSize = (this.isIOS() && this.isMobileLandscape()) ?
+    let screenSize = (this.isIOS() && this.getOrientation() === 'landscape') ?
       { height: screen.width, width: screen.height } :
       { height: screen.height, width: screen.width };
 
