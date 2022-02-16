@@ -503,6 +503,16 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
         done = (that.numAnswered >= that.getMaxScore());
 
+        // Emit screenshot
+        setTimeout(function() {
+          if (H5P && H5P.KLScreenshot) {
+            H5P.KLScreenshot.takeScreenshot(
+              that,
+              that.$container.get(0)
+            );
+          }
+        }, 1000); // Allow results to display
+
         if (!done) {
           that.nextTimer = setTimeout(that.next.bind(that), 3500);
         }
