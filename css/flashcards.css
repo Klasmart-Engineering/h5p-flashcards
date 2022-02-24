@@ -3,7 +3,7 @@
   overflow: hidden;
   padding: 0.5em 0 0em;
   line-height: 1.25em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1em;
   background: rgba(255, 255, 255, 0.9);
 }
@@ -368,7 +368,7 @@
   padding: 0 4em 0 1em;
   border-radius: 2em;
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #27344e;
   border: 2px solid #e7e9ec;
 }
