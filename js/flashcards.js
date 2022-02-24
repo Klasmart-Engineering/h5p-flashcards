@@ -452,7 +452,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       var userCorrect = isCorrectAnswer(card, userAnswer, that.options.caseSensitive);
       var done = false;
 
-      if (userAnswer === '' && !this.isMobileLandscape()) {
+      if (userAnswer === '' && !that.isMobileLandscape()) {
         $input.focus();
       }
 
