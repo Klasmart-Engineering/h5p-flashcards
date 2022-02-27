@@ -73,6 +73,11 @@
       "machineName": "H5PEditor.ShowWhen",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "EditorFontKidsLoop",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
