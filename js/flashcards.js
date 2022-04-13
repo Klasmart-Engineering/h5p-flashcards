@@ -408,7 +408,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         },
         {
           onResult: (result) => {
-            if (!this.ismobileLandscape()) {
+            if (!this.isMobileLandscape()) {
               $card.find('.h5p-textinput').val(result.phrases[0]).focus();
             }
           }
@@ -452,11 +452,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       var userCorrect = isCorrectAnswer(card, userAnswer, that.options.caseSensitive);
       var done = false;
 
-<<<<<<< HEAD
       if (userAnswer === '' && !that.isMobileLandscape()) {
-=======
-      if (userAnswer === '' && !that.ismobileLandscape()) {
->>>>>>> H5P-509 Add FontKidsLoop
         $input.focus();
       }
 
@@ -692,7 +688,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
        is running, and the card will be misplaced */
     $card.one('transitionend', function () {
       if ($card.hasClass('h5p-current') && !$card.find('.h5p-textinput')[0].disabled) {
-        if (!this.ismobileLandscape()) {
+        if (!this.isMobileLandscape()) {
           $card.find('.h5p-textinput').focus();
         }
       }
@@ -856,7 +852,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     // Don't resize if trigger was opening/closing virtual keyboard on mobile
     if (
-      self.ismobileLandscape() &&
+      self.isMobileLandscape() &&
       document.activeElement &&
       document.activeElement.classList.contains('h5p-textinput')
     ) {
@@ -865,7 +861,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     // Change landscape layout on mobile
     if (typeof window.orientation === 'number') {
-      this.$container.toggleClass('h5p-landscape', self.ismobileLandscape());
+      this.$container.toggleClass('h5p-landscape', self.isMobileLandscape());
     }
 
     this.containerStyle = this.containerStyle || getComputedStyle(this.$container.get(0));
@@ -892,7 +888,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         );
       }
 
-      if (displayLimits && self.ismobileLandscape()) {
+      if (displayLimits && self.isMobileLandscape()) {
         // Limit card size, 8 and 4 are default margins and paddings
         $(this).css({
           'max-width': (displayLimits.width - 8 * baseFontSize) + 'px',
@@ -931,7 +927,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
       // Workaround for very narrow landscape displays
       const $answer = $(this).find('.h5p-answer');
-      if (displayLimits && self.ismobileLandscape()) {
+      if (displayLimits && self.isMobileLandscape()) {
         if ($(this).find('.h5p-foot').width() < $textInput.outerWidth()) {
           let fontSizeEm = 1;
 
@@ -964,7 +960,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     }
 
     // Reduce font size if mobile landscape
-    if (displayLimits && this.ismobileLandscape()) {
+    if (displayLimits && this.isMobileLandscape()) {
       this.$inner.children('.h5p-card').each(function () {
 
         // Limit card height, 4 and 6 are default margins and paddings
