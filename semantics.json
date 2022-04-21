@@ -23,6 +23,7 @@
       "name": "card",
       "type": "group",
       "label": "Card",
+      "isSubContent": true,
       "importance": "high",
       "fields": [
         {

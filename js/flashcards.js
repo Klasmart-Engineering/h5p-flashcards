@@ -507,7 +507,15 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         setTimeout(function() {
           if (H5P && H5P.KLScreenshot) {
             H5P.KLScreenshot.takeScreenshot(
-              that,
+              {
+                subContentId: that.options.cards[index].subContentId,
+                getTitle: () => {
+                  return that.options.pageAnnouncement
+                    .replace('@current', that.$current.index() + 1)
+                    .replace('@total', that.options.cards.length.toString());
+                },
+                trigger: that.trigger
+              },
               that.$container.get(0)
             );
           }
