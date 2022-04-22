@@ -859,7 +859,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       }
     };
 
-    self.trigger(XapiGenerator.getXapiEvent(instance));
+    this.trigger(XapiGenerator.getXapiEvent(instance));
   };
 
   /**
