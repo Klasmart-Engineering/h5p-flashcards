@@ -324,6 +324,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       .on('click', function () {
         that.resetAudio();
         that.enableResultScreen();
+        that.triggerXAPIProgressed(that.options.cards.length);
       })
       .appendTo($inner.parent());
   };
@@ -668,6 +669,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     this.$visualProgress
       .attr('aria-valuenow', ((index + 1) / this.options.cards.length * 100).toFixed(2))
       .find('.h5p-visual-progress-inner').width((index + 1) / this.options.cards.length * 100 + '%');
+
+    this.triggerXAPIProgressed(index);
   };
 
   /**
@@ -808,6 +811,16 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     this.setProgress();
     this.$container.find('.h5p-show-results').show();
     this.trigger('resize');
+  };
+
+  /**
+   * Trigger xAPI "progressed".
+   * @param {number} index Index.
+   */
+  C.prototype.triggerXAPIProgressed = function (index) {
+    var xAPIEvent = this.createXAPIEventTemplate('progressed');
+    xAPIEvent.data.statement.object.definition.extensions['http://id.tincanapi.com/extension/ending-point'] = index + 1;
+    this.trigger(xAPIEvent);
   };
 
   /**
