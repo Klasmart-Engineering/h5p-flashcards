@@ -469,6 +469,13 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         that.answers[index] = userAnswer;
         that.triggerXAPI('interacted');
 
+        that.triggerXAPIAnswered({
+          currentIndex: index,
+          correct: userCorrect,
+          answer: card.answer,
+          response: userAnswer
+        });
+
         if (userCorrect) {
           $input.parent()
             .addClass('h5p-correct')
@@ -821,6 +828,38 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     var xAPIEvent = this.createXAPIEventTemplate('progressed');
     xAPIEvent.data.statement.object.definition.extensions['http://id.tincanapi.com/extension/ending-point'] = index + 1;
     this.trigger(xAPIEvent);
+  };
+
+  /**
+   * Trigger xAPI "answered" for pseudo subcontent.
+   */
+  C.prototype.triggerXAPIAnswered = function (params) {
+    // Pseudo instance for pseudo subcontent
+    const instance = {
+      contentId: this.contentId,
+      subContentId: this.options.cards[params.currentIndex].subContentId,
+      createXAPIEventTemplate: this.createXAPIEventTemplate,
+      options: {
+        description: this.options.pageAnnouncement
+          .replace('@current', params.currentIndex + 1)
+          .replace('@total', this.options.cards.length),
+        cards: [this.options.cards[params.currentIndex]],
+        caseSensitive: this.options.caseSensitive
+      },
+      parent: this,
+      answers: [params.response],
+      getTitle: function () {
+        return 'Flashcards Page';
+      },
+      getScore: function () {
+        return params.correct ? 1 : 0;
+      },
+      getMaxScore: function () {
+        return 1;
+      }
+    };
+
+    self.trigger(XapiGenerator.getXapiEvent(instance));
   };
 
   /**
