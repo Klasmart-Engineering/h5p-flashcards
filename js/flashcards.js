@@ -361,6 +361,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     this.resetAudio();
     this.enableResultScreen();
     this.triggerXAPIProgressed(this.options.cards.length);
+    this.trigger('kllStoreSessionState', undefined, { bubbles: true, external: true });
   };
 
   /**
@@ -507,6 +508,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         that.triggerXAPI('interacted');
 
         if (!isRecreatingState) {
+          that.trigger('kllStoreSessionState', undefined, { bubbles: true, external: true });
           that.triggerXAPIAnswered({
             currentIndex: currentIndex,
             correct: userCorrect,
@@ -740,6 +742,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       .attr('aria-valuenow', ((index + 1) / this.options.cards.length * 100).toFixed(2))
       .find('.h5p-visual-progress-inner').width((index + 1) / this.options.cards.length * 100 + '%');
 
+    this.trigger('kllStoreSessionState', undefined, { bubbles: true, external: true });
     this.triggerXAPIProgressed(index);
   };
 
@@ -1136,17 +1139,15 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       });
     }
 
-    if (this.numAnswered < this.options.cards.length) {
-      //Resize cards holder
-      var innerHeight = 0;
-      this.$inner.children('.h5p-card').each(function () {
-        if ($(this).height() > innerHeight) {
-          innerHeight = $(this).height();
-        }
-      });
+    //Resize cards holder
+    var innerHeight = 0;
+    this.$inner.children('.h5p-card').each(function () {
+      if ($(this).height() > innerHeight) {
+        innerHeight = $(this).height();
+      }
+    });
 
-      this.$inner.height(innerHeight);
-    }
+    this.$inner.height(innerHeight);
 
     // Give focus back after orientation change
     if (self.previousFocus) {
