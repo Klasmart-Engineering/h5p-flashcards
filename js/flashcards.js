@@ -12,8 +12,9 @@ H5P.Flashcards = (function ($, XapiGenerator) {
    *
    * @param {Object} options Run parameters
    * @param {Number} id Content identification
+   * @param {object} extras Extras.
    */
-  function C(options, id) {
+  function C(options, id, extras) {
     const that = this;
 
     H5P.EventDispatcher.call(this);
@@ -53,6 +54,10 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     this.audioButtons = [];
     this.speechRecognitions = [];
+
+    this.previousState = extras && extras.previousState ?
+      extras.previousState :
+      {};
 
     this.on('resize', this.resize, this);
 
@@ -242,8 +247,18 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       this.addCard(i, $inner);
     }
 
-    // Set current:
-    this.setCurrent($inner.find('>:first-child'));
+    // Recreate previous position
+    if (
+      typeof that.previousState.index !== 'number' ||
+      that.previousState.index === this.options.cards.length
+    ) {
+      // No previous position or results
+      this.setCurrent($inner.find('> :first-child'));
+    }
+    else {
+      const currentCard = $inner.find('> .h5p-card')[that.previousState.index];
+      this.setCurrent($(currentCard));
+    }
 
     // Find highest image and set task height.
     var height = 0;
@@ -280,6 +295,10 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     this.addShowResults($inner);
     this.createResultScreen();
 
+    if (this.numAnswered === this.getMaxScore()) {
+      this.$container.find('.h5p-show-results').show();
+    }
+
     this.$inner = $inner;
     this.setProgress();
     this.trigger('resize');
@@ -303,6 +322,14 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         this.announceCurrentPage();
       }.bind(this), 100);
     }
+
+    // Previous state was showing results
+    if (
+      typeof this.previousState.index === 'number' &&
+      this.previousState.index === this.options.cards.length
+    ) {
+      this.handleShowResults();
+    }
   };
 
   /**
@@ -322,11 +349,18 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     $showResults
       .on('click', function () {
-        that.resetAudio();
-        that.enableResultScreen();
-        that.triggerXAPIProgressed(that.options.cards.length);
+        that.handleShowResults();
       })
       .appendTo($inner.parent());
+  };
+
+  /**
+   * Handle show results.
+   */
+  C.prototype.handleShowResults = function () {
+    this.resetAudio();
+    this.enableResultScreen();
+    this.triggerXAPIProgressed(this.options.cards.length);
   };
 
   /**
@@ -445,10 +479,13 @@ H5P.Flashcards = (function ($, XapiGenerator) {
 
     var $input = $card.find('.h5p-textinput');
 
-    var handleClick = function () {
+    var handleClick = function (cardId) {
+      const isRecreatingState = (typeof cardId === 'number');
+      const currentIndex = (typeof cardId === 'number') ? cardId : index;
+
       that.resetAudio();
 
-      var card = that.options.cards[index];
+      var card = that.options.cards[currentIndex];
       var userAnswer = $input.val().trim();
       var userCorrect = isCorrectAnswer(card, userAnswer, that.options.caseSensitive);
       var done = false;
@@ -461,20 +498,22 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         that.numAnswered++;
 
         // Deactivate input options
-        if (that.speechRecognitions && that.speechRecognitions.length > index) {
-          that.speechRecognitions[index].disableButton();
+        if (that.speechRecognitions && that.speechRecognitions.length > currentIndex) {
+          that.speechRecognitions[currentIndex].disableButton();
         }
         $input.add(this).attr('disabled', true);
 
-        that.answers[index] = userAnswer;
+        that.answers[currentIndex] = userAnswer;
         that.triggerXAPI('interacted');
 
-        that.triggerXAPIAnswered({
-          currentIndex: index,
-          correct: userCorrect,
-          answer: card.answer,
-          response: userAnswer
-        });
+        if (!isRecreatingState) {
+          that.triggerXAPIAnswered({
+            currentIndex: currentIndex,
+            correct: userCorrect,
+            answer: card.answer,
+            response: userAnswer
+          });
+        }
 
         if (userCorrect) {
           $input.parent()
@@ -497,16 +536,23 @@ H5P.Flashcards = (function ($, XapiGenerator) {
           $('<div class="h5p-solution">' +
             '<span class="solution-icon h5p-rotate-in"></span>' +
             '<span class="solution-text">' +
-              (that.options.cards[index].answer ?
-                that.options.showSolutionText + ': <span>' + C.splitAlternatives(that.options.cards[index].answer).join('<span> ' + that.options.or + ' </span>') + '</span>' :
+              (that.options.cards[currentIndex].answer ?
+                that.options.showSolutionText + ': <span>' + C.splitAlternatives(that.options.cards[currentIndex].answer).join('<span> ' + that.options.or + ' </span>') + '</span>' :
                 '') + '</span>' +
           '</div>').appendTo($card.find('.h5p-imageholder'));
 
           const ariaText = that.options.cardAnnouncement.replace(
             '@answer',
-            that.options.cards[index].answer
+            that.options.cards[currentIndex].answer
           );
-          that.$ariaAnnouncer.html(ariaText);
+
+          if (that.$ariaAnnouncer) {
+            that.$ariaAnnouncer.html(ariaText);
+          }
+        }
+
+        if (isRecreatingState) {
+          return;
         }
 
         done = (that.numAnswered >= that.getMaxScore());
@@ -516,7 +562,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
           if (H5P && H5P.KLScreenshot) {
             H5P.KLScreenshot.takeScreenshot(
               {
-                subContentId: that.options.cards[index].subContentId,
+                subContentId: that.options.cards[currentIndex].subContentId,
                 getTitle: () => {
                   return that.options.pageAnnouncement
                     .replace('@current', that.$current.index() + 1)
@@ -552,6 +598,23 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         return false;
       }
     });
+
+    // Recreate previous card state
+    if (
+      Array.isArray(that.previousState.cards) &&
+      that.previousState.cards.length > index
+    ) {
+      // Card inputs
+      $card.find('.h5p-textinput').val(that.previousState.cards[index].userAnswer || '');
+
+      // Checked state
+      if (
+        that.previousState.cards[index].checked &&
+        $card.find('.h5p-button.h5p-check-button').is(':visible')
+      ) {
+        handleClick(index);
+      }
+    }
 
     return $card;
   };
@@ -872,6 +935,8 @@ H5P.Flashcards = (function ($, XapiGenerator) {
       button.enableButton();
     });
 
+    this.previousState = {};
+
     this.numAnswered = 0;
     this.hasBeenReset = true;
     this.cardsLoaded();
@@ -1131,6 +1196,27 @@ H5P.Flashcards = (function ($, XapiGenerator) {
     const xAPIEvent = XapiGenerator.getXapiEvent(this);
     return {
       statement: xAPIEvent.data.statement
+    };
+  };
+
+  /**
+   * Get current state.
+   * @return {object} Current state.
+   */
+  C.prototype.getCurrentState = function () {
+    const cards = this.$container.find('.h5p-card').toArray()
+      .map(function (card) {
+        return {
+          userAnswer: $(card).find('.h5p-textinput').val(),
+          checked: !$(card).find('.h5p-button.h5p-check-button').is(':visible')
+        };
+      });
+
+    return {
+      cards: cards,
+      index: this.$resultScreen.is(':visible') ?
+        cards.length :
+        this.$current.index()
     };
   };
 
