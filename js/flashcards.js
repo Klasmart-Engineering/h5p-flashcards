@@ -727,7 +727,7 @@ H5P.Flashcards = (function ($, XapiGenerator) {
         }).appendTo($listItem);
       }
     }
-    if (this.getScore() < this.getMaxScore()) {
+    if (this.getScore() <= this.getMaxScore()) {
       this.$retryButton.removeClass('h5p-invisible');
     }
   };
